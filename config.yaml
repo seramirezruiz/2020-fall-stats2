@@ -5,6 +5,7 @@ publishDir: "docs"
 theme: hyde-hyde
 params:
   author: Sebastian Ramirez Ruiz
+  mainsections: about
   copyright: Sebastian Ramirez Ruiz
   dateformat: Jan 2, 2006
   highlightjs: yes
@@ -17,6 +18,7 @@ params:
     email: ramirez-ruiz@hertie-school.org
     github: seramirezruiz
     twitter: seramirezruiz
+    web: seramirezruiz.github.io
   title: Title
 menu:
   main:
