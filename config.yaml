@@ -1,11 +1,10 @@
 baseurl: https://seramirezruiz.github.io/2020-fall-stats2
 languageCode: en
-title: 2020-II Tutorial
+title: 2020-II Statistical Modeling and Causal Inference Tutorial
 publishDir: "docs"
 theme: hyde-hyde
 params:
   author: Sebastian Ramirez Ruiz
-  mainsections: about
   copyright: Sebastian Ramirez Ruiz
   dateformat: Jan 2, 2006
   highlightjs: yes
@@ -14,12 +13,12 @@ params:
   licenseURL: https://creativecommons.org/licenses/by-sa/4.0
   showBuiltWith: no
   since: 2020
+  mainsections: about
   social:
     email: ramirez-ruiz@hertie-school.org
     github: seramirezruiz
     twitter: seramirezruiz
-    web: seramirezruiz.github.io
-  title: Title
+  title: Statistical Modeling and Causal Inference Tutorial | 2020-II
 menu:
   main:
     - identifier: about
@@ -37,7 +36,7 @@ menu:
       url: /slides/
       weight: 3
       pre: <i class='fa fa-laptop'></i>
-      
+    
 
 markup:
   goldmark:
