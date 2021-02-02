@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scripts on 2020-II Tutorial</title>
+    <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/</link>
+    <description>Recent content in Scripts on 2020-II Tutorial</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 03 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://seramirezruiz.github.io/2020-fall-stats2/scripts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Session 09 - Moderation</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_10_moderation/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_10_moderation/</guid>
+      <description>Measuring the effect of information on peace agreement support 
+The country of Absurdistan has had an ongoing civil conflict for the past 60 years. The fighting between national government forces and guerrilla members from the National Revolutionary Army (NRA) has lead to more than 200,000 deaths, 8 million internally displaced persons, and countless victims between 1960 to 2020. The civil war in Absurdistan has been a low-intensity asymmetric war.</description>
+    </item>
+    
+    <item>
+      <title>Session 08 - Panel Data and Fixed Effects Specifications</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_9_panel_data_fe/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_9_panel_data_fe/</guid>
+      <description>Measuring the effect of a carbon tax on national carbon dioxide emissions per capita 
+You are hired as an outside consultant by the Organization of Economic Non-Cooperation for Development (OENCD), they are interested in studying the effect of a carbon tax on national carbon dioxide emissions per capita. You are provided with data for the twenty-members of the organization from 2009 to 2019. The data can be called a balanced panel based on the description given in the lecture (i.</description>
+    </item>
+    
+    <item>
+      <title>Session 07 - Difference-in-Differences</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_8_did/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_8_did/</guid>
+      <description>Measuring the effect of a soda tax on sugar-added drink consumption After the very succesful impact evaluations you have performed in the past weeks, you are contacted by the local government of Pawnee, Indiana. The city is interested in your advice to assess a policy intervention passed with the support of councilwoman Leslie Knope.
+The city of Pawnee has been at the spotlight recently, as it has come to be known as the child obesity and diabetes capital of the state of Indiana.</description>
+    </item>
+    
+    <item>
+      <title>Session 06 - Regression Discontinuity Design (RDD)</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_7_rdd/</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_7_rdd/</guid>
+      <description>Resources R packages for RDD: https://eric.ed.gov/?id=EJ1141190 Short overview of RDD with examples: https://www.youtube.com/watch?v=tWRsYWSP3fM A good introduction to local regression methods is also available in Chapters 1 and 2 of Keele, Luke. 2008. &amp;quot;Semiparametric regression for the social sciences&amp;quot;. Chichester, UK: John Wiley and Sons. local regression introduction: https://www.youtube.com/watch?v=Vf7oJ6z2LCc A more technical introduction: https://www.youtube.com/watch?v=ncF7ArjJFqM&amp;amp;t=3s Imbens &amp;amp; Kalyanaraman (2012) Optimal bandwidth choice: https://academic.oup.com/restud/article/79/3/933/1533189  
+
+ Example 1. Measuring the effect of the minimum legal drinking age (MLDA) on mortality   In an effort to address the social and public health problems associated with underage drinking, a group of American college presidents have lobbied states to return the minimum legal drinking age (MLDA) to the Vietnam era threshold of 18.</description>
+    </item>
+    
+    <item>
+      <title>Session 05 - Matching</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_6_matching/</link>
+      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_6_matching/</guid>
+      <description>The Effect of Catholic School on Student Achievement Example inspired by Simon Ejdemyr: https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html
+Reference links: MatchIt: https://cran.r-project.org/web/packages/MatchIt/vignettes/matchit.pdf Cobalt (optional library for matching plots and extra features): https://cran.r-project.org/web/packages/cobalt/vignettes/cobalt_A0_basic_use.html kableExtra (for formatting data frames): https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html Stargazer (for formatting model outputs): https://www.jakeruss.com/cheatsheets/stargazer/ Video overview of matching concepts: https://fr.coursera.org/lecture/crash-course-in-causality/overview-of-matching-JQfPC  library(dplyr) # for data wrangling library(readr) # for loading the .csv data library(ggplot2) # for creating plots library(stargazer) # for formatting model output library(kableExtra) # for formatting data frames library(MatchIt) # for matching set.</description>
+    </item>
+    
+    <item>
+      <title>Session 04 - Instrumental Variables</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_5_ivs/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_5_ivs/</guid>
+      <description>Welcome Today we will have a look at instrumental variables. We will explore encouragement experimental designs and how IVs can be used in observational data settings. Additionally, we will learn how to calculate our LATE manually with the wald estimator and in R with two-stage square least regressions through ivreg
+ Measuring the effect of mosquito net use on malaria infection Imagine that the organization you work for is laying out a project to distribute mosquito nets to help combat malaria transmitions.</description>
+    </item>
+    
+    <item>
+      <title>Session 03 - Causal Graphs</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_4_causal_graphs/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_4_causal_graphs/</guid>
+      <description># Load packages. Install them first, in case you don&amp;#39;t have them yet. set.seed(42) #for consistent randomization library(palmerpenguins) # To get our example&amp;#39;s dataset library(ggplot2) # To visualize data (this package is also loaded by library(tidyverse)) library(stargazer) # To format regression tables library(tidyverse) # To use dplyr functions and the pipe operator when needed library(knitr) # To create tables with kable() library(kableExtra) # To format tables with kable_styling() Welcome This week&#39;s tutorial will be divided in two broader camps.</description>
+    </item>
+    
+    <item>
+      <title>Session 02 - Regression</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_3_regression/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_3_regression/</guid>
+      <description>Welcome In this week&#39;s lecture reviewed bivariate and multiple linear regressions. You also learned how they relate to the Potential Outcomes Framework and can be used, under certain conditions, for causal inference.
+In this lab session we will:
+ Take a step back to review how to create tables and perform t-tests in R Learn to run regression models using R Learn how to present to your results in neat tables  We will use a package called wooldridge that contains dozens of datasets used by Jeffrey M.</description>
+    </item>
+    
+    <item>
+      <title>Session 01 - Foundations</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/foundations/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/foundations/</guid>
+      <description>Welcome! The practical component of the Statistics II: Statistical Modeling and Causal Inference course relies largely in R programming. Today we will center on some of the necessary skills to perform the assignments for the course. Finally, we will dive into some of the substance of the class by exploring the Potential Outcomes Framework.
+In this tutorial, you will learn to:
+ identify the some of the basic functionalities of R and RStudio import data sets into your R environment distinguish the foundations of the Potential Outcomes Framework (POF) apply dplyr verbs to retrieve estimates   R and RStudio: Basics The RStudio layout RStudio is an integrated development environment (IDE) for R.</description>
+    </item>
+    
+  </channel>
+</rss>

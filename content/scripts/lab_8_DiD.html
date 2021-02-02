@@ -1,0 +1,521 @@
+---
+title: "Session 07 - Difference-in-Differences"
+date: '2020-10-20'
+output:
+  html_document:
+    theme: journal
+    toc: yes
+    toc_float:
+      collapsed: false
+---
+
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<div id="measuring-the-effect-of-a-soda-tax-on-sugar-added-drink-consumption" class="section level2">
+<h2>Measuring the effect of a soda tax on sugar-added drink consumption</h2>
+<p>After the very succesful impact evaluations you have performed in the past weeks, you are contacted by the local government of Pawnee, Indiana. The city is interested in your advice to assess a policy intervention passed with the support of councilwoman Leslie Knope.</p>
+<p>The city of Pawnee has been at the spotlight recently, as it has come to be known as the child obesity and diabetes capital of the state of Indiana. Some of the constituents of the city point at the fast food culture and soda sizes across the restaurants in town as a source of the problem. The largest food chain in Pawnee, Paunch Burger, offers its smallest soda size at a whopping 64oz (about 1.9 liters).</p>
+<p>The &quot;soda tax&quot;, as it came to be known, came to effect initially at a couple of districts. Fortunately for you, based on an archaic law, residents of Indiana have to demonstrate their residence in the district they intend to dine before being served at any of the restaurants. The latter fact means that Pawnee inhabitants can only buy sugar-added drinks in their respective home district.</p>
+<center>
+<img src="https://media.giphy.com/media/CAXFvut1tBBf2/giphy.gif" alt="soda_size" width="450"/>
+</center>
+<p><br> <br> <br></p>
+<hr />
+</div>
+<div id="exploring-the-data" class="section level2">
+<h2>1.1 Exploring the data</h2>
+<pre class="r"><code>set.seed(42) #for consistent results
+
+library(dplyr) # to wrangle our data
+library(tidyr) # to wrangle our data - pivot_longer()
+library(ggplot2) # to render our graphs
+library(readr) # for loading the .csv data
+library(lmtest) # to gather our clustered standard errors - coeftest()
+library(plm)  # to gather our clustered standard errors - vcovHC()
+library(kableExtra) # to render better formatted tables
+library(stargazer) # for formatting your model output
+
+soda_tax_df &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/seramirezruiz/hertiestats2/master/data/soda_tax_df.csv&quot;) # simulated data
+
+names(soda_tax_df) # to check the names of the variables in our data</code></pre>
+<pre><code>## [1] &quot;id&quot;        &quot;district&quot;  &quot;treatment&quot; &quot;pre_tax&quot;   &quot;post_tax&quot;</code></pre>
+<p><br> Our dataset <em>soda_tax_df</em>, contains the following information:</p>
+<ul>
+<li><code>ìd</code>: A unique number identifier for each of the 7,500 inhabitants of Pawnee</li>
+<li><code>district</code>: The name of the district in which the corresponding unit lives</li>
+<li><code>treatment</code>: A binary variable that signals whether the subject lived in a district where the tax was implemented</li>
+<li><code>pre_tax</code>: The weekly sugar-added drink consumption in ounces before the tax was imposed</li>
+<li><code>post_tax</code>: The weekly sugar-added drink consuption in ounces after the tax was imposed</li>
+</ul>
+<p><br></p>
+<hr />
+<p><br></p>
+<div id="lets-check-how-many-units-are-there-in-every-district-and-which-districts-have-treated-units" class="section level4">
+<h4>Let's check how many units are there in every district and which districts have treated units</h4>
+<p>We can use the base R <em>table()</em> function, which performs categorical tabulation of data with the variable and its frequency, to check how many people live on each district.</p>
+<pre class="r"><code>table(soda_tax_df$district) %&gt;%
+  knitr::kable(col.names = c(&quot;District&quot;, &quot;Inhabitants&quot;)) %&gt;% # create kable table
+  kableExtra::kable_styling() # view kable table</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+District
+</th>
+<th style="text-align:right;">
+Inhabitants
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+City Hall
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Old Eagleton
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+River Park
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Snake Lounge
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+The Pit
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wamapoke Quarter
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+</tbody>
+</table>
+<p>
+Even more, we can create a two-way cross-table to check how many treated units live in each district.
+<p>
+<pre class="r"><code>table(soda_tax_df$treatment, soda_tax_df$district) %&gt;% 
+  knitr::kable() %&gt;% # create kable table
+  kableExtra::kable_styling() # view kable table</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+City Hall
+</th>
+<th style="text-align:right;">
+Old Eagleton
+</th>
+<th style="text-align:right;">
+River Park
+</th>
+<th style="text-align:right;">
+Snake Lounge
+</th>
+<th style="text-align:right;">
+The Pit
+</th>
+<th style="text-align:right;">
+Wamapoke Quarter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1250
+</td>
+<td style="text-align:right;">
+1250
+</td>
+<td style="text-align:right;">
+1250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+1250
+</td>
+<td style="text-align:right;">
+1250
+</td>
+<td style="text-align:right;">
+1250
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<hr />
+<p><br></p>
+</div>
+<div id="lets-check-the-distribution-of-sugar-added-drinks-consumption-at-different-points-in-time" class="section level4">
+<h4>Let's check the distribution of sugar-added drinks consumption at different points in time</h4>
+<p>
+We can also utilize <em>summary()</em> to check the distribution of our variables. In this case, we can look at the distribution of our variable of interest at the two points in time:
+<p>
+<center>
+<strong>Pre-tax consumption levels</strong>
+</center>
+<pre class="r"><code>summary(soda_tax_df$pre_tax)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0   400.6   506.6   509.7   610.8  1687.6</code></pre>
+<pre class="r"><code>ggplot(soda_tax_df, aes(x = pre_tax)) +
+  geom_vline(xintercept = 509.7, linetype = &quot;dashed&quot;) +
+  geom_density(fill = &quot;#f1a340&quot;, alpha = 0.3) +
+  theme_minimal() +
+  labs(x = &quot;Pre-tax soda consumtion (oz)&quot;,
+       y = &quot;Density&quot;)+
+  ggtitle(&quot;Soda consumption before the tax, in all districts&quot;)</code></pre>
+<img src="/scripts/lab_8_DiD_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<p>
+<center>
+<strong>Post-tax consumption levels</strong>
+</center>
+<pre class="r"><code>summary(soda_tax_df$post_tax)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0   327.0   445.9   449.8   566.1  1705.6</code></pre>
+<pre class="r"><code>ggplot(soda_tax_df, aes(x = post_tax)) +
+  geom_density(fill = &quot;#998ec3&quot;, alpha = 0.3) +
+  geom_vline(xintercept = 449.8, linetype = &quot;dashed&quot;) +
+  theme_minimal() +
+  labs(x = &quot;Post-tax soda consumtion (oz)&quot;,
+       y = &quot;Density&quot;) +
+  ggtitle(&quot;Soda consumption after the tax, in all districts&quot;)</code></pre>
+<p><img src="/scripts/lab_8_DiD_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><br> <br> <br> <br></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="modeling-and-estimating" class="section level2">
+<h2>1.2 Modeling and estimating</h2>
+<p>So far we have ignored time in our estimations. Up until this point, most of the tools we have learned produce estimates of the counterfactual through explicit assignment rules that work randomly or as-if-randomly (e.g. randomized experimental, regression discountinuity, and instrumental variable set-ups).</p>
+<p>Difference-in-differences compares the changes in outcomes over time between units under different treatment states. This allows us to correct for any differences between the treatment and comparison groups that are constant over time assuming that the trends in time are parallel.</p>
+<p><br> <br></p>
+<div id="a.-calculating-without-time" class="section level3">
+<h3>a. Calculating without time</h3>
+If we did not have the <code>pre_tax</code> baseline measure, we would likely utilize the <code>post_tax</code> to explore the average effect on the treated. In this case, we would model this as:
+<p>
+<pre class="r"><code>after_model &lt;- lm(post_tax ~ treatment, data = soda_tax_df)</code></pre>
+<div align="center">
+<pre class="r"><code>stargazer(after_model, type = &quot;text&quot;)</code></pre>
+<p>=============================================== Dependent variable:<br />
+--------------------------- post_tax<br />
+----------------------------------------------- treatment -146.918***<br />
+(3.798)</p>
+<p>Constant 523.273***<br />
+(2.686)</p>
+<hr />
+<p>Observations 7,500<br />
+R2 0.166<br />
+Adjusted R2 0.166<br />
+Residual Std. Error 164.465 (df = 7498)<br />
+F Statistic 1,496.245*** (df = 1; 7498) =============================================== Note: <em>p&lt;0.1; <strong>p&lt;0.05; </strong></em>p&lt;0.01</p>
+</div>
+<p>
+<p>
+<p>We could read this result substantively as: those who lived in districts were the tax was implemented consumed on average 146.9 ounces less of sugar-added drinks per week compared to those who lived in districts were the tax was not put in place. <strong>This calculation would give us a comparison of the treatment and control groups after treatment.</strong></p>
+<p>To believe the results of our <code>after_model</code>, we would need to believe that the mean ignorability of treatment assignment assumption is fulfilled. We would have to think carefully about possible factors that could differentiate our treatment and control groups. We use a treatment indicator based on the districts where the measure was able to be implemented. Treatment was not fully randomly assigned, so there may be lots of potential confounders that create baseline differences in the scores for those living in Old Eagleton compared to those in Snake Lounge, which also affect the after-treatment comparisons.</p>
+<p>If we think about the mechanics behind this naive calculation, we are just comparing the average observed outcomes for those treated and not treated after the tax was imposed:</p>
+<pre class="r"><code>soda_tax_df %&gt;% 
+  dplyr::group_by(treatment) %&gt;% 
+  dplyr::summarize(mean = mean(post_tax)) %&gt;% 
+  knitr::kable(col.names = c(&quot;Treatment&quot;, &quot;Average after tax&quot;)) %&gt;%
+  kableExtra::kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Treatment
+</th>
+<th style="text-align:right;">
+Average after tax
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+523.2726
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+376.3548
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/scripts/lab_8_DiD_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
+</div>
+<div id="b.-including-the-time-dimension-first-differences-on-treatment-indicator" class="section level3">
+<h3>b. Including the time dimension (First differences on treatment indicator)</h3>
+<p>We can introduce the time component to our calculation by incorporating the pre-treatment levels of sugar-added drink consumption, which gives us the diff-in-diff estimand. We could calculate this in a fairly straightforward manner by creating a variable assessing the change:</p>
+<ul>
+<li><code>change</code>: The difference in sugar-added drink consuption between post- and pre-tax</li>
+</ul>
+<pre class="r"><code>soda_tax_df &lt;- soda_tax_df %&gt;%
+  dplyr::mutate(change = post_tax - pre_tax) #
+
+did_model &lt;- lm(change ~ treatment, data = soda_tax_df)</code></pre>
+<div align="center">
+<pre class="r"><code>stargazer(did_model, after_model, type = &quot;text&quot;)</code></pre>
+<p>============================================================ Dependent variable:<br />
+---------------------------- change post_tax<br />
+(1) (2)<br />
+------------------------------------------------------------ treatment -149.744*** -146.918*** (0.246) (3.798)</p>
+<p>Constant 14.967*** 523.273*** (0.174) (2.686)</p>
+<hr />
+<p>Observations 7,500 7,500<br />
+R2 0.980 0.166<br />
+Adjusted R2 0.980 0.166<br />
+Residual Std. Error (df = 7498) 10.671 164.465<br />
+F Statistic (df = 1; 7498) 369,242.400*** 1,496.245<strong><em> ============================================================ Note: </em>p&lt;0.1; </strong>p&lt;0.05; ***p&lt;0.01</p>
+</div>
+<p>
+<p>
+We could read this result substantively as: those who lived in districts were the tax was implemented consumed on average 149.7 ounces less of sugar-added drinks per week compared to those who lived in districts were the tax was not put in place. <strong>This calculation would give us the change, or difference, in sugar-added drink consumption for treatment and control groups.</strong>
+<p>
+<p>To believe the results of our <code>did_model</code>, we would need to believe that there are parallel trends between the two groups.</p>
+<p><br> <em>Note: when simulating the data the <code>post_tax</code> was defined as:</em> <span class="math inline">\(post_tax = 15 + pre\_tax - 150(treatment) + error\)</span></p>
+<p><br> <br></p>
+</div>
+<div id="c.-including-the-time-dimension-regression-formulation-of-the-did-model" class="section level3">
+<h3>c. Including the time dimension (Regression formulation of the DiD model)</h3>
+Remember the formula from the lecture where we estimate the diff-in-diff effect with time and treatment dummies? We can re-format our data to gather our diff-in-diff estimand
+<p>
+<span class="math display">\[Y_{it} = β_0 + β_1D^*_i + β_2P_t + β_{DD}D^∗_i × P_t + q_{it} \]</span>
+<p>
+<p>
+<center>
+where <span class="math inline">\(D^*_i\)</span> tell us if subject <span class="math inline">\(i\)</span> is in the treatment group and <span class="math inline">\(P_t\)</span> indicates the point in time (1 for post)
+</center>
+<p>
+We need to convert our data to a long format to render the time and treatment dummy variables. This is how our data look like:
+<p>
+<pre class="r"><code>head(soda_tax_df, 6)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##      id district     treatment pre_tax post_tax change
+##   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1 Snake Lounge         0   1688.    1706.  17.9 
+## 2     2 Snake Lounge         0    427.     438.  11.0 
+## 3     3 Snake Lounge         0    566.     560.  -6.80
+## 4     4 Snake Lounge         0    607.     624.  17.0 
+## 5     5 Snake Lounge         0    573.     607.  34.2 
+## 6     6 Snake Lounge         0    496.     502.   5.72</code></pre>
+<p>
+We will utilize the <em>pivot_longer()</em> function from <code>tidyr</code> to format our data frame.
+<p>
+<pre class="r"><code>soda_tax_df_long &lt;- soda_tax_df %&gt;%
+  dplyr::select(-change) %&gt;% # select the columns we are interested in
+  tidyr::pivot_longer(cols = c(pre_tax, post_tax), names_to = &quot;period&quot;, values_to = &quot;soda_drank&quot;) %&gt;% # grab columns, put names to new variable period and values to new variable soda_drank
+  dplyr::mutate(after_tax = ifelse(period == &quot;post_tax&quot;, 1, 0)) # create dummy for period
+
+  head(soda_tax_df_long, 6)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##      id district     treatment period   soda_drank after_tax
+##   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;
+## 1     1 Snake Lounge         0 pre_tax       1688.         0
+## 2     1 Snake Lounge         0 post_tax      1706.         1
+## 3     2 Snake Lounge         0 pre_tax        427.         0
+## 4     2 Snake Lounge         0 post_tax       438.         1
+## 5     3 Snake Lounge         0 pre_tax        566.         0
+## 6     3 Snake Lounge         0 post_tax       560.         1</code></pre>
+<p>
+<p>We can see that under our long format, we have two entries for every individual. We have our variable <code>after_tax</code>, which represents <span class="math inline">\(P_t\)</span>, where 0 and 1 are pre- and post-tax periods respectively. We can now render our regression based on the formula:</p>
+<span class="math display">\[Y_{it} = β_0 + β_1D^*_i + β_2P_t + β_{DD}D^∗_i × P_t + q_{it}\]</span>
+<p>
+<pre class="r"><code>did_long &lt;- lm(soda_drank ~ treatment + after_tax + treatment * after_tax, data = soda_tax_df_long) #running our model
+
+did_long_clustered_se &lt;- coeftest(did_long, vcov=vcovHC(did_long,type=&quot;HC0&quot;,cluster=&quot;district&quot;)) #clustering out standard errors at the district level</code></pre>
+<p>
+<div align="center">
+<pre class="r"><code>stargazer(did_long_clustered_se, type = &quot;text&quot;)</code></pre>
+<p>=============================================== Dependent variable:<br />
+---------------------------</p>
+<hr />
+<p>treatment 2.827<br />
+(3.799)</p>
+<p>after_tax 14.967***<br />
+(3.836)</p>
+<p>treatment:after_tax -149.744***<br />
+(5.372)</p>
+<p>Constant 508.306***<br />
+(2.708)</p>
+<h1 id="section">===============================================</h1>
+<p>Note: <em>p&lt;0.1; <strong>p&lt;0.05; </strong></em>p&lt;0.01</p>
+</div>
+<br>
+<p>
+<p>(We can think about the results of this regression in terms of the lab's slide 10: we are mostly interested in the coefficient for the interaction term in our regression equation).</p>
+<p><br></p>
+<p><img src="/scripts/lab_8_DiD_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<pre class="r"><code>soda_tax_df_long %&gt;% 
+  dplyr::group_by(period, treatment) %&gt;% #group by period and treatment
+  dplyr::summarize(soda_consumed = mean(soda_drank)) %&gt;% #render averages
+  tidyr::pivot_wider(names_from = period, values_from = soda_consumed) %&gt;%
+  dplyr::select(treatment, pre_tax, post_tax) %&gt;%
+  dplyr::arrange(desc(treatment)) %&gt;%
+  knitr::kable(col.names = c(&quot;Treatment&quot;, &quot;Pre-tax&quot;, &quot;Post-tax&quot;),
+               digits = 2) %&gt;%
+  kableExtra::kable_styling(full_width = F) %&gt;%
+  kableExtra::add_header_above(c(&quot;&quot;, &quot;Period&quot; = 2)) #add header for period</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Period
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:right;">
+Treatment
+</th>
+<th style="text-align:right;">
+Pre-tax
+</th>
+<th style="text-align:right;">
+Post-tax
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+511.13
+</td>
+<td style="text-align:right;">
+376.35
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+508.31
+</td>
+<td style="text-align:right;">
+523.27
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>soda_tax_df %&gt;% 
+  select(-id, -district) %&gt;% 
+  group_by(treatment) %&gt;%
+  summarize_all(funs(mean)) %&gt;% 
+  pivot_longer(cols = c(pre_tax, post_tax), 
+               names_to = &quot;period&quot;, 
+               values_to = &quot;soda_drank&quot;) %&gt;% 
+  mutate(time = ifelse(period == &quot;post_tax&quot;, 2, 1)) %&gt;% 
+  group_by(treatment) %&gt;% 
+  ggplot(aes(x = factor(time), y = soda_drank, color = factor(treatment))) +
+  geom_point() +
+  geom_line(aes(x = time, y = soda_drank)) +
+  labs(x = &quot;Time periods&quot;, y = &quot;Ounces of soda drank per week&quot;, color = &quot;Treatment group&quot;)+
+  theme_minimal() </code></pre>
+<pre><code>## Warning: `funs()` is deprecated as of dplyr 0.8.0.
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<p><img src="/scripts/lab_8_DiD_files/figure-html/unnamed-chunk-18-1.png" width="672" /> <br></p>
+<center>
+<img src="https://nickchk.com/anim/Animation%20of%20DID.gif" alt="dif-in-dif" width="450"/>
+</center>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="drafting-some-brief-recommedations" class="section level2">
+<h2>1.3 Drafting some brief recommedations</h2>
+Based on your analysis of the data at hand, you decide to recommend that the tax measure should move forward in the rest of Pawnee. You state that it is a very good example of a pigouvian tax, which captures the negative externalities not included in the market price of sugar-added drinks. The findings suggest that the tax reduced the weekly sugar-added drink consumption by about 150 luquid ounces (almost 4.5 liters).
+<p>
+<p>
+Your evaluation report is so convincing that the Director of the Parks Department, Ron Swanson, is even doubting libertarianism.
+<p>
+<p>
+<center>
+<img src="https://i.imgur.com/vV7enqX.gif" width="450"/>
+</center>
+<p><br> <br> <br></p>
+</div>

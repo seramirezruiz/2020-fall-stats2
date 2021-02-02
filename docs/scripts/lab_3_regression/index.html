@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+    
+    
+    
+
+<title>Session 02 - Regression • 2020-II Tutorial</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Session 02 - Regression"/>
+<meta name="twitter:description" content="Welcome In this week&#39;s lecture reviewed bivariate and multiple linear regressions. You also learned how they relate to the Potential Outcomes Framework and can be used, under certain conditions, for causal inference.
+In this lab session we will:
+ Take a step back to review how to create tables and perform t-tests in R Learn to run regression models using R Learn how to present to your results in neat tables  We will use a package called wooldridge that contains dozens of datasets used by Jeffrey M."/>
+
+<meta property="og:title" content="Session 02 - Regression" />
+<meta property="og:description" content="Welcome In this week&#39;s lecture reviewed bivariate and multiple linear regressions. You also learned how they relate to the Potential Outcomes Framework and can be used, under certain conditions, for causal inference.
+In this lab session we will:
+ Take a step back to review how to create tables and perform t-tests in R Learn to run regression models using R Learn how to present to your results in neat tables  We will use a package called wooldridge that contains dozens of datasets used by Jeffrey M." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_3_regression/" />
+<meta property="article:published_time" content="2020-09-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-08T00:00:00+00:00" /><meta property="og:site_name" content="Title" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/2020-fall-stats2/scss/hyde-hyde.71157e768c4e111a23c3531b95e0cbb59bbef3c9e6901d36247cb53d6b6be258.css" integrity="sha256-cRV&#43;doxOERojw1MbleDLtZu&#43;88nmkB02JHy1PWtr4lg=">
+
+
+<link rel="stylesheet" href="/2020-fall-stats2/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    
+
+</head>
+
+
+    <body class=" ">
+    
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+
+
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://seramirezruiz.github.io/2020-fall-stats2">
+        
+          2020-II Tutorial
+        
+        </a>
+      </span>
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">2020-II Tutorial</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/about/"><i class='fa fa-info'></i>
+						<span>About</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/scripts/"><i class='fa fa-code'></i>
+						<span>Scripts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/slides/"><i class='fa fa-laptop'></i>
+						<span>Slides</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/seramirezruiz" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://github.com/seramirezruiz" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:ramirez-ruiz@hertie-school.org" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2020 - 2021 Sebastian Ramirez Ruiz
+  
+    <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>Session 02 - Regression</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Sep 8, 2020
+    
+    
+    
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 12 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<p><br> <br></p>
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>In this week's lecture reviewed bivariate and multiple linear regressions. You also learned how they relate to the Potential Outcomes Framework and can be used, under certain conditions, for causal inference.</p>
+<p>In this lab session we will:</p>
+<ul>
+<li>Take a step back to review how to create tables and perform t-tests in R</li>
+<li>Learn to run regression models using R</li>
+<li>Learn how to present to your results in neat tables</li>
+</ul>
+<p>We will use a package called <code>wooldridge</code> that contains dozens of datasets used by Jeffrey M. Wooldridge with pedagogical purposes in his book on Introductory Econometrics.</p>
+<pre class="r"><code># Load packages. Install them first, in case you don&#39;t have them yet.
+
+library(wooldridge) # To get our example&#39;s dataset 
+library(broom) # To format regression output 
+library(stargazer) # To format regression tables 
+library(tidyverse) # To use dplyr functions and the pipe operator when needed
+library(knitr) # To create tables with kable()
+library(kableExtra) # To format tables with kable_styling()</code></pre>
+<p>Now let's load and take a look at our data.</p>
+<pre class="r"><code>data(&quot;wage1&quot;)
+
+?wage1 #Using the help function you can explore what the variables in the dataset contain. 
+
+#You can also have a general view:
+str(wage1)
+head(wage1)
+
+#Or look at the whole thing using the function View(wage1) in your console.</code></pre>
+<p><br></p>
+</div>
+<div id="review-balance-tables-and-t-test" class="section level2">
+<h2>Review: balance tables and t-test</h2>
+<p>Let's take this dataset as an example to review how to perform a t-test in r (task 4 of your first assignment).</p>
+<p>Remember the idea of using a t-test here is to check the statistical significance of a difference in means. In other words, we want to know how likely it is that the mean value of a variable in two groups or samples can be due to random chance (our null hypothesis).</p>
+<p>In this case, let's imagine we want to check the statistical significance of the difference in means of years of education (interval variable) between men and women (categorical) in our dataset.</p>
+<p>The general syntax for a t-test is simply as follows. The vectors refer to the variables whose mean you want to compare.</p>
+<pre class="r"><code>t.test(y ~ x, data = your_data)</code></pre>
+<p>Is the difference in average years of education between men and women statistically significant?</p>
+<pre class="r"><code>t.test(educ ~ female, data = wage1)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  educ by female
+## t = 1.9693, df = 517.81, p-value = 0.04946
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.001124132 0.940597569
+## sample estimates:
+## mean in group 0 mean in group 1 
+##        12.78832        12.31746</code></pre>
+<pre class="r"><code>#OR 
+t.test(wage1$educ[wage1$female==1],wage1$educ[wage1$female == 0])</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  wage1$educ[wage1$female == 1] and wage1$educ[wage1$female == 0]
+## t = -1.9693, df = 517.81, p-value = 0.04946
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.940597569 -0.001124132
+## sample estimates:
+## mean of x mean of y 
+##  12.31746  12.78832</code></pre>
+<p>Now let's take a look at how can we create a simple and good looking balance table. The idea here is to compare the mean values of different variables across populations or groups. In our case, let's see whether men and women differ in average wages, years of education, years of experience and number of years in their current job.</p>
+<p>Here is one way to create the table.</p>
+<pre class="r"><code>wage1 %&gt;% 
+  dplyr::group_by(female) %&gt;% 
+  dplyr::select(wage, educ, exper, tenure) %&gt;% 
+  dplyr::summarise_all(mean) %&gt;% # uses the summarize function to all the vars. we selected 
+  t() %&gt;% # To transpose the df 
+  as.data.frame() %&gt;%  
+  dplyr::add_rownames(&quot;Variable&quot;) %&gt;% 
+  dplyr::filter(Variable != &quot;female&quot;) %&gt;% # drop the redundant variable 
+  dplyr::rename(Male = &quot;1&quot;, Female = &quot;2&quot;) %&gt;% # call the columns by what they are 
+  dplyr::mutate(Difference = Female - Male) %&gt;% 
+  dplyr::mutate_if(is.numeric, round, 3) %&gt;% 
+  knitr::kable() %&gt;% 
+  kableExtra::kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Male
+</th>
+<th style="text-align:right;">
+Female
+</th>
+<th style="text-align:right;">
+Difference
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+wage
+</td>
+<td style="text-align:right;">
+7.099
+</td>
+<td style="text-align:right;">
+4.588
+</td>
+<td style="text-align:right;">
+-2.512
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+educ
+</td>
+<td style="text-align:right;">
+12.788
+</td>
+<td style="text-align:right;">
+12.317
+</td>
+<td style="text-align:right;">
+-0.471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exper
+</td>
+<td style="text-align:right;">
+17.558
+</td>
+<td style="text-align:right;">
+16.429
+</td>
+<td style="text-align:right;">
+-1.130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tenure
+</td>
+<td style="text-align:right;">
+6.474
+</td>
+<td style="text-align:right;">
+3.615
+</td>
+<td style="text-align:right;">
+-2.859
+</td>
+</tr>
+</tbody>
+</table>
+<div id="your-turn" class="section level4">
+<h4>Your turn</h4>
+<ul>
+<li>Create a table to see if white and non-white respondents in the survey are balanced in terms of education levels and job experience.</li>
+</ul>
+<pre class="r"><code>wage1 %&gt;% 
+  dplyr::group_by(nonwhite) %&gt;% 
+  dplyr::select(educ, exper) %&gt;% 
+  dplyr::summarise_all(mean) %&gt;% # uses the summarize function to all the vars. we selected 
+  t() %&gt;% # To transpose the df 
+  as.data.frame() %&gt;%  
+  dplyr::add_rownames(&quot;Variable&quot;) %&gt;% 
+  dplyr::filter(Variable != &quot;nonwhite&quot;) %&gt;% # drop the redundant variable 
+  dplyr::rename(White = &quot;1&quot;, Non_white = &quot;2&quot;) %&gt;% # call the columns by what they are 
+  dplyr::mutate(Difference = Non_white - White) %&gt;% 
+  dplyr::mutate_if(is.numeric, round, 3) %&gt;% 
+  knitr::kable() %&gt;% 
+  kableExtra::kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+White
+</th>
+<th style="text-align:right;">
+Non_white
+</th>
+<th style="text-align:right;">
+Difference
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+educ
+</td>
+<td style="text-align:right;">
+12.642
+</td>
+<td style="text-align:right;">
+11.870
+</td>
+<td style="text-align:right;">
+-0.772
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+exper
+</td>
+<td style="text-align:right;">
+16.951
+</td>
+<td style="text-align:right;">
+17.593
+</td>
+<td style="text-align:right;">
+0.641
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Run a t-test to check the statistical significance of the differences in means that you observe.</li>
+</ul>
+<pre class="r"><code>t.test(educ ~ nonwhite, data = wage1)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  educ by nonwhite
+## t = 1.6471, df = 61.233, p-value = 0.1047
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1650514  1.7082090
+## sample estimates:
+## mean in group 0 mean in group 1 
+##        12.64195        11.87037</code></pre>
+<pre class="r"><code>t.test(exper ~ nonwhite, data = wage1)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  exper by nonwhite
+## t = -0.32877, df = 65.737, p-value = 0.7434
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -4.536204  3.253562
+## sample estimates:
+## mean in group 0 mean in group 1 
+##        16.95127        17.59259</code></pre>
+<pre class="r"><code>#See the relationship with lm()
+lm(exper ~ nonwhite, data = wage1) %&gt;% summary()</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = exper ~ nonwhite, data = wage1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -16.593 -11.951  -3.772   9.049  33.407 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  16.9513     0.6252  27.112   &lt;2e-16 ***
+## nonwhite      0.6413     1.9514   0.329    0.743    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.58 on 524 degrees of freedom
+## Multiple R-squared:  0.0002061,  Adjusted R-squared:  -0.001702 
+## F-statistic: 0.108 on 1 and 524 DF,  p-value: 0.7426</code></pre>
+</div>
+</div>
+<div id="bivariate-linear-regression" class="section level2">
+<h2>Bivariate linear regression</h2>
+<p><br> Imagine that, using the <code>wage1</code> dataset you are interested in exploring the relationship between education and people's salaries. You want to look for the causal effect that getting one more year of education (<code>educ</code>) has on people's average wage per hour (<code>wage</code>).</p>
+<p>You start by exploring their relationship:</p>
+<pre class="r"><code>plot(wage1$educ, wage1$wage)</code></pre>
+<p><img src="/scripts/lab_3_regression_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>cor(wage1$educ, wage1$wage)</code></pre>
+<pre><code>## [1] 0.4059033</code></pre>
+<p><br> <br></p>
+<p>As we saw in the lecture, you can resort to regression to address this question using observational data.</p>
+<p>So you formalize the relationship you're after in a first, short model:</p>
+<p><span class="math display">\[wage = \alpha + \kappa education + u\]</span></p>
+<p><br></p>
+<p>Remember from the lecture (slide 18), that we can relate a regression equation with the potential outcomes framwework, as follows.</p>
+<p><br></p>
+<ul>
+<li>Kappa, the regression coefficient for our independent variable <em>education</em>, is equal to the Naïve Average Treatment Effect or <strong>NATE</strong>.</li>
+</ul>
+<p><span class="math display">\[\kappa = E[Y_1|D=1] - E[Y_0|D=0]\]</span> <br></p>
+<ul>
+<li>The constant term (intercept) in our regression equation is equal to the expected outcome when not treated, for those untreated.</li>
+</ul>
+<p><span class="math display">\[\alpha = E[Y_0|D=0] \]</span> <br></p>
+<ul>
+<li>The sum of the constant term <em>plus</em> the regression coefficient in our bivariate model is equal to the expected outcome when treated, for those treated.</li>
+</ul>
+<p><span class="math display">\[\alpha + \kappa = E[Y_1|D=1] \]</span> <br></p>
+<p>Now that we know what we are after, how to get these estimates in R?</p>
+<div id="running-a-linear-model-in-r" class="section level3">
+<h3>Running a linear model in R</h3>
+<p>The general syntax for running a regression model in R is the following:</p>
+<pre class="r"><code>your_model &lt;- lm(dependent_variable ~ independent_variable, data = your_dataset)</code></pre>
+<p>Now try to create an object with your model, based on the bivariate regression equation we specified above in which <code>wage</code> is our outcome of interest and <code>educ</code> is our independent or 'treatment' variable.</p>
+<pre class="r"><code>naive_model &lt;- lm(wage ~ educ, data = wage1)</code></pre>
+<p>You have created an object that contains the all the coefficients, std errors and all other information included in your model. In order to <strong>see</strong> the estimates, you could use the base R function summary(), but base R is not the best at visualizing regression outputs.</p>
+<p>The <code>tidy()</code> function from the <code>broom</code> package, instead, constructs a data frame that summarizes the model’s statistical findings. You can see what else you can do with <code>broom</code> by running: vignette(&quot;broom&quot;).</p>
+<p>See the difference:</p>
+<pre class="r"><code>summary(naive_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ educ, data = wage1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.3396 -2.1501 -0.9674  1.1921 16.6085 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.90485    0.68497  -1.321    0.187    
+## educ         0.54136    0.05325  10.167   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.378 on 524 degrees of freedom
+## Multiple R-squared:  0.1648, Adjusted R-squared:  0.1632 
+## F-statistic: 103.4 on 1 and 524 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>broom::tidy(naive_model)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   -0.905    0.685      -1.32 1.87e- 1
+## 2 educ           0.541    0.0532     10.2  2.78e-22</code></pre>
+<pre class="r"><code># You can save into an object so you can easily pull the values later
+
+naive_model_df &lt;- broom::tidy(naive_model)
+
+# Remember magrittr can make your life easier
+
+naive_model_df &lt;- lm(wage ~ educ, data = wage1) %&gt;% broom::tidy()</code></pre>
+<p>How would you interpret these results?</p>
+<ul>
+<li><p>We can see that the coefficient for educ, (our kappa, our NATE), suggests that one more year of education is associated with a $0.54 increase in hourly wages.</p></li>
+<li><p>You can also see the value of the intercept (alpha, or E[Y_0|D = 0]) and the significance levels of our coefficients.</p></li>
+<li><p>What is the difference in expected hourly wages between a person who studies up to highschool (13 years) and a person with a college degree (17 years)?</p></li>
+</ul>
+<pre class="r"><code>#Different ways to get to the same:
+
+(coef(naive_model)[1] + coef(naive_model)[&quot;educ&quot;] * 17) - 
+(coef(naive_model)[1] + coef(naive_model)[&quot;educ&quot;] * 13)</code></pre>
+<pre><code>## (Intercept) 
+##    2.165437</code></pre>
+<pre class="r"><code>predict(naive_model, newdata = data.frame(educ = 17)) -
+predict(naive_model, newdata = data.frame(educ = 13))</code></pre>
+<pre><code>##        1 
+## 2.165437</code></pre>
+<pre class="r"><code>coef(naive_model)[&quot;educ&quot;] * (17 - 13)</code></pre>
+<pre><code>##     educ 
+## 2.165437</code></pre>
+<ul>
+<li>What is the expected hourly wage for someone with 25 years of education?</li>
+</ul>
+<pre class="r"><code>predict(naive_model, newdata = data.frame(educ = 25))</code></pre>
+<pre><code>##        1 
+## 12.62913</code></pre>
+<pre class="r"><code>coef(naive_model)[1] + coef(naive_model)[&quot;educ&quot;] * 25</code></pre>
+<pre><code>## (Intercept) 
+##    12.62913</code></pre>
+<ul>
+<li>Under this model specifications, what percentage of the variation wage is explained by years of education?</li>
+</ul>
+<pre class="r"><code>summary(naive_model)$r.squared</code></pre>
+<pre><code>## [1] 0.1647575</code></pre>
+</div>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2>Multiple regression</h2>
+<p>Looking for ATE.</p>
+<p>But you know that this survey data does not fulfill the assumptions needed in order to infer causality without much doubt. It is highly likely that we are picking up the effect of varaibles that affect both Y (wages) and D (levels of education). People do not get more education by random chance: there can be different causes leading to people getting more education and earning more. That is, you suspect that <code>educ</code> is not independent of the error term.</p>
+<p>After a good time reading about the gender pay gap, you admit that gender can be a those confounding variables. So you decide to include the <code>female</code> variable in the model.</p>
+<p>Now your model looks like this:</p>
+<p><span class="math display">\[wage = \alpha^l + \kappa^leducation + \beta gender + u\]</span></p>
+<p>Our interpretation of the regression equation in POF terms will not change much. Kappa (long) is still the coefficient we are most interested in: the treatment effect of one more year of <code>educ</code> on <code>wage</code>.</p>
+<p>But remember that multiple regression only uses the unique variation in each regressor not explained by other regressors, so including an additional term (<code>female</code>) -if it is associated with education and wage- will affect our treatment effect estimate.</p>
+<p>Let's see: run a multiple regression using the model above. The general syntax for it is this:</p>
+<pre class="r"><code>your_model &lt;- lm(dependent_variable ~ independent_variable1 + independent_variable2, data = your_dataset)</code></pre>
+<pre class="r"><code>less_naive_model &lt;- lm(wage ~ educ + female, wage1)
+
+less_naive_model_df &lt;- broom::tidy(less_naive_model)</code></pre>
+<p>How would you interpret these results now?</p>
+<ul>
+<li><p>What does the coefficient for the <code>female</code> variable tell us?</p></li>
+<li><p>What is the expected wage for a woman with 20 years of education?</p></li>
+<li><p>What is the difference if a man had the same amount of education</p></li>
+</ul>
+</div>
+<div id="observing-biases" class="section level2">
+<h2>Observing biases</h2>
+<p>In order to see how biased the estimate from our more naïve or 'short' model was, we can compare the regression coefficients between our two models. Let's use the <code>stargazer</code> package to do so.</p>
+<p>The function (also called) <code>stargazer()</code> allows you to see the resutls of different models side by side. The general syntax is:</p>
+<pre class="r"><code>stargazer::stargazer(name_of_model_1, name_of_model_2, type = &quot;format of output&quot;) 
+
+#try out &quot;text&quot; and &quot;html&quot; as outputs</code></pre>
+<p>You can very specifically define the format and information included in your tables using stargazer. Check out, for example, <a href="https://www.jakeruss.com/cheatsheets/stargazer/#add-a-title-change-the-variable-labels">this</a> and <a href="https://cran.r-project.org/web/packages/stargazer/stargazer.pdf">this</a></p>
+<ul>
+<li>Create a stargazer table with both models. Try out using &quot;text&quot; and &quot;html&quot; for the output.</li>
+</ul>
+<pre class="r"><code>stargazer::stargazer(naive_model, less_naive_model, 
+                     type = &quot;text&quot;)</code></pre>
+<pre><code>## 
+## ====================================================================
+##                                   Dependent variable:               
+##                     ------------------------------------------------
+##                                           wage                      
+##                               (1)                      (2)          
+## --------------------------------------------------------------------
+## educ                        0.541***                0.506***        
+##                             (0.053)                  (0.050)        
+##                                                                     
+## female                                              -2.273***       
+##                                                      (0.279)        
+##                                                                     
+## Constant                     -0.905                   0.623         
+##                             (0.685)                  (0.673)        
+##                                                                     
+## --------------------------------------------------------------------
+## Observations                  526                      526          
+## R2                           0.165                    0.259         
+## Adjusted R2                  0.163                    0.256         
+## Residual Std. Error     3.378 (df = 524)        3.186 (df = 523)    
+## F Statistic         103.363*** (df = 1; 524) 91.315*** (df = 2; 523)
+## ====================================================================
+## Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p><em>remember that to render the html output from stargazer you need to have <code>results=asis</code> on your chunk</em></p>
+<pre class="r"><code>stargazer::stargazer(naive_model, less_naive_model, 
+                     type = &quot;html&quot;)</code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+wage
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+educ
+</td>
+<td>
+0.541<sup>***</sup>
+</td>
+<td>
+0.506<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.053)
+</td>
+<td>
+(0.050)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+female
+</td>
+<td>
+</td>
+<td>
+-2.273<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.279)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.905
+</td>
+<td>
+0.623
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.685)
+</td>
+<td>
+(0.673)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+526
+</td>
+<td>
+526
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.165
+</td>
+<td>
+0.259
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.163
+</td>
+<td>
+0.256
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+3.378 (df = 524)
+</td>
+<td>
+3.186 (df = 523)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+103.363<sup>***</sup> (df = 1; 524)
+</td>
+<td>
+91.315<sup>***</sup> (df = 2; 523)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<ul>
+<li>How biased was the estimate from our first model compared to our second model?</li>
+</ul>
+<pre class="r"><code>naive_model_df[2,2] - less_naive_model_df[2,2]</code></pre>
+<pre><code>##     estimate
+## 1 0.03490714</code></pre>
+<pre class="r"><code># Or, the same
+coef(naive_model)[&quot;educ&quot;] - coef(less_naive_model)[&quot;educ&quot;]</code></pre>
+<pre><code>##       educ 
+## 0.03490714</code></pre>
+<div id="your-turn-1" class="section level4">
+<h4>Your turn</h4>
+<ul>
+<li><p>can you think of additional observed confounding variable that could also have an effect on education and wages that you should include in your regression model?</p></li>
+<li><p>Specify the model to include an additional variable you thought of, see your results in a tidy format using broom::tidy() and include them in your stargazer() table.</p></li>
+<li><p>How would you interpret the results?</p></li>
+</ul>
+</div>
+</div>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/2020-fall-stats2/scripts/foundations/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Session 01 - Foundations</span>
+    </a>
+    
+    
+    <a href="/2020-fall-stats2/scripts/lab_4_causal_graphs/" class="navigation-next">
+      <span class="navigation-tittle">Session 03 - Causal Graphs</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+
+<script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" integrity="sha384-ZbbbT1gw3joYkKRqh0kWyRp32UAvdqkpbLedQJSlnI8iLQcFVxaGyrOgOJiDQTTR" crossorigin="anonymous"></script>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+    
+
+
+
+    </body>
+</html>

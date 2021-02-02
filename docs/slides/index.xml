@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Slides on 2020-II Tutorial</title>
+    <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/</link>
+    <description>Recent content in Slides on 2020-II Tutorial</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 03 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://seramirezruiz.github.io/2020-fall-stats2/slides/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>09 - Moderation</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/10-slides/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/10-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/10-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>08 - Panel Data and Fixed Effects Specifications</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/09-slides/</link>
+      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/09-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/09-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>07- Difference-in-Differences</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/08-slides/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/08-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/08-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>06 - Regression Discontinuity Design (RDD)</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/07-slides/</link>
+      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/07-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/07-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>05 - Matching</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/06-slides/</link>
+      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/06-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/06-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>04 - Instrumental Variables</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/05-slides/</link>
+      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/05-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/05-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>03 - Causal Graphs</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/04-slides/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/04-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/04-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>02 - Regression</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/03-slides/</link>
+      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/03-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/03-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>01 - Foundations</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/02-slides/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/02-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/02-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+    <item>
+      <title>00 - Introduction</title>
+      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/01-slides/</link>
+      <pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/01-slides/</guid>
+      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/01-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
+    </item>
+    
+  </channel>
+</rss>

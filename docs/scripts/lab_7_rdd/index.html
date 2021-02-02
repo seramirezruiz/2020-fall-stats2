@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    
+
+
+    <head>
+    <link href="https://gmpg.org/xfn/11" rel="profile">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.80.0" />
+
+    
+    
+    
+
+<title>Session 06 - Regression Discontinuity Design (RDD) • 2020-II Tutorial</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Session 06 - Regression Discontinuity Design (RDD)"/>
+<meta name="twitter:description" content="Resources R packages for RDD: https://eric.ed.gov/?id=EJ1141190 Short overview of RDD with examples: https://www.youtube.com/watch?v=tWRsYWSP3fM A good introduction to local regression methods is also available in Chapters 1 and 2 of Keele, Luke. 2008. &quot;Semiparametric regression for the social sciences&quot;. Chichester, UK: John Wiley and Sons. local regression introduction: https://www.youtube.com/watch?v=Vf7oJ6z2LCc A more technical introduction: https://www.youtube.com/watch?v=ncF7ArjJFqM&amp;t=3s Imbens &amp; Kalyanaraman (2012) Optimal bandwidth choice: https://academic.oup.com/restud/article/79/3/933/1533189  
+
+ Example 1. Measuring the effect of the minimum legal drinking age (MLDA) on mortality   In an effort to address the social and public health problems associated with underage drinking, a group of American college presidents have lobbied states to return the minimum legal drinking age (MLDA) to the Vietnam era threshold of 18."/>
+
+<meta property="og:title" content="Session 06 - Regression Discontinuity Design (RDD)" />
+<meta property="og:description" content="Resources R packages for RDD: https://eric.ed.gov/?id=EJ1141190 Short overview of RDD with examples: https://www.youtube.com/watch?v=tWRsYWSP3fM A good introduction to local regression methods is also available in Chapters 1 and 2 of Keele, Luke. 2008. &quot;Semiparametric regression for the social sciences&quot;. Chichester, UK: John Wiley and Sons. local regression introduction: https://www.youtube.com/watch?v=Vf7oJ6z2LCc A more technical introduction: https://www.youtube.com/watch?v=ncF7ArjJFqM&amp;t=3s Imbens &amp; Kalyanaraman (2012) Optimal bandwidth choice: https://academic.oup.com/restud/article/79/3/933/1533189  
+
+ Example 1. Measuring the effect of the minimum legal drinking age (MLDA) on mortality   In an effort to address the social and public health problems associated with underage drinking, a group of American college presidents have lobbied states to return the minimum legal drinking age (MLDA) to the Vietnam era threshold of 18." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_7_rdd/" />
+<meta property="article:published_time" content="2020-10-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-13T00:00:00+00:00" /><meta property="og:site_name" content="Title" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/2020-fall-stats2/scss/hyde-hyde.71157e768c4e111a23c3531b95e0cbb59bbef3c9e6901d36247cb53d6b6be258.css" integrity="sha256-cRV&#43;doxOERojw1MbleDLtZu&#43;88nmkB02JHy1PWtr4lg=">
+
+
+<link rel="stylesheet" href="/2020-fall-stats2/scss/print.2744dcbf8a0b2e74f8a50e4b34e5f441be7cf93cc7de27029121c6a09f9e77bc.css" integrity="sha256-J0Tcv4oLLnT4pQ5LNOX0Qb58&#43;TzH3icCkSHGoJ&#43;ed7w=" media="print">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    
+
+</head>
+
+
+    <body class=" ">
+    
+
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+
+
+<div class="sidebar">
+  <div class="container ">
+    <div class="sidebar-about">
+      <span class="site__title">
+        <a href="https://seramirezruiz.github.io/2020-fall-stats2">
+        
+          2020-II Tutorial
+        
+        </a>
+      </span>
+      
+      
+      <p class="site__description">
+        
+      </p>
+    </div>
+    <div class="collapsible-menu">
+      <input type="checkbox" id="menuToggle">
+      <label for="menuToggle">2020-II Tutorial</label>
+      <div class="menu-content">
+        <div>
+	<ul class="sidebar-nav">
+		 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/about/"><i class='fa fa-info'></i>
+						<span>About</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/scripts/"><i class='fa fa-code'></i>
+						<span>Scripts</span>
+					</a>
+				</li>
+			 
+		 
+			 
+				<li>
+					<a href="/2020-fall-stats2/slides/"><i class='fa fa-laptop'></i>
+						<span>Slides</span>
+					</a>
+				</li>
+			 
+		
+	</ul>
+</div>
+
+        <section class="social">
+	
+	<a href="https://twitter.com/seramirezruiz" rel="me"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	<a href="https://github.com/seramirezruiz" rel="me"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<a href="mailto:ramirez-ruiz@hertie-school.org" rel="me"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	
+	
+	
+	
+</section>
+
+      </div>
+    </div>
+    
+<div class="copyright">
+  &copy; 2020 - 2021 Sebastian Ramirez Ruiz
+  
+    <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>
+  
+</div>
+
+
+
+  </div>
+</div>
+
+        <div class="content container">
+            
+    
+<article>
+  <header>
+    <h1>Session 06 - Regression Discontinuity Design (RDD)</h1>
+    
+    
+<div class="post__meta">
+    
+    
+      <i class="fas fa-calendar-alt"></i> Oct 13, 2020
+    
+    
+    
+    
+    
+    <br/>
+    <i class="fas fa-clock"></i> 15 min read
+</div>
+
+
+  </header>
+  
+  
+  <div class="post">
+    
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+
+
+<div id="resources" class="section level4">
+<h4>Resources</h4>
+<ol style="list-style-type: decimal">
+<li>R packages for RDD: <a href="https://eric.ed.gov/?id=EJ1141190" class="uri">https://eric.ed.gov/?id=EJ1141190</a></li>
+<li>Short overview of RDD with examples: <a href="https://www.youtube.com/watch?v=tWRsYWSP3fM" class="uri">https://www.youtube.com/watch?v=tWRsYWSP3fM</a></li>
+<li>A good introduction to local regression methods is also available in Chapters 1 and 2 of Keele, Luke. 2008. &quot;Semiparametric regression for the social sciences&quot;. Chichester, UK: John Wiley and Sons.</li>
+<li>local regression introduction: <a href="https://www.youtube.com/watch?v=Vf7oJ6z2LCc" class="uri">https://www.youtube.com/watch?v=Vf7oJ6z2LCc</a></li>
+<li>A more technical introduction: <a href="https://www.youtube.com/watch?v=ncF7ArjJFqM&amp;t=3s" class="uri">https://www.youtube.com/watch?v=ncF7ArjJFqM&amp;t=3s</a></li>
+<li>Imbens &amp; Kalyanaraman (2012) Optimal bandwidth choice: <a href="https://academic.oup.com/restud/article/79/3/933/1533189" class="uri">https://academic.oup.com/restud/article/79/3/933/1533189</a></li>
+</ol>
+<p><br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+<div id="example-1.-measuring-the-effect-of-the-minimum-legal-drinking-age-mlda-on-mortality" class="section level2">
+<h2>Example 1. Measuring the effect of the minimum legal drinking age (MLDA) on mortality</h2>
+<p>
+<blockquote>
+<p>In an effort to address the social and public health problems associated with underage drinking, a group of American college presidents have lobbied states to return the minimum legal drinking age (MLDA) to the Vietnam era threshold of 18. The theory behind this effort (known as the Amethyst Initiative) is that legal drinking at age 18 discourages binge drinking and promotes a culture of mature alcohol consumption. This contrasts with the traditional view that the age-21 MLDA, while a blunt and imperfect tool, reduces youth access to alcohol, thereby preventing some harm. <strong>Angrist and Pischke (2014)</strong></p>
+</blockquote>
+You have been hired as an outside consultant by Mothers Against Drunk Driving (MADD) to study whether the over-21 drinking minimum in the US helps reduce alcohol consumption by young adults and its harms, or is it just not working. <em>This example is based on data from Carpenter and Dobkin (2011).</em>
+<p>
+<pre class="r"><code>library(dplyr) # for data wrangling
+library(ggplot2) # for creating plots
+library(rdrobust) # for rdrobust()
+library(readr) # for loading the .csv data
+
+set.seed(42) # for consistent results
+
+mlda_df &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/seramirezruiz/stats-ii-lab/master/Session%206/data/mlda.csv&quot;) # loading data from Mastering Metrics</code></pre>
+<p><br> <br></p>
+<hr />
+<p><br> <br></p>
+<div id="checking-visually-whether-a-sharp-rdd-makes-sense-for-the-analysis" class="section level3">
+<h3>Checking visually whether a sharp-RDD makes sense for the analysis</h3>
+<p>What we are looking for is whether our threshold is in fact the cut-off for treatment. In this case, the law is pretty clear: young adults in the US can legally drink at age 21.</p>
+<pre class="r"><code>ggplot(mlda_df, aes(x = agecell, # actual age
+                 y = treatment, # are they over 21 or not
+                 color = factor(treatment))) +
+  geom_point() + 
+  labs(x = &quot;Age&quot;, 
+       y = &quot;Treatment Probability&quot;) +
+  scale_color_discrete(name = &quot; &quot;, 
+                       labels = c(&quot;Under legal drinking age&quot;, &quot;Over legal drinking age&quot;)) +
+  geom_vline(xintercept = 21, linetype = &quot;dotted&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<p>We can see from the graph that at the 21-years-of-age threshold, young adults can legally consume and buy alcohol in the US, which would make age a viable forcing variable for a sharp-RDD set-up.</p>
+<p><br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+<div id="running-our-regression-models" class="section level3">
+<h3>Running our regression models</h3>
+<p>As was pointed out in the lecture, we must decide on a model that we believe reflects the relationship of our <span class="math inline">\(E(Y_i|\tilde{X}_i)\)</span>:</p>
+<ul>
+<li>linear, common slope
+<p></li>
+<li>linear, different slopes
+<p></li>
+<li>non-linear
+<p></li>
+</ul>
+Remember that each model corresponds to a particular set of assumptions
+<p>
+<p>We will show you how to visualize this with <code>ggplot</code>. <br></p>
+<center>
+<strong>LET'S LOOK AT A SCATTERPLOT TO GET AN IDEA OF WHAT WE ARE DEALING WITH</strong>
+</center>
+<p>
+<pre class="r"><code>ggplot(mlda_df, 
+       aes(x = agecell, # age 
+           y = outcome)) + # mortality rate per 100k accidents
+  geom_point() +
+  geom_vline(xintercept = 21, linetype = &quot;dotted&quot;) +
+  labs(title = &quot;Exploratory plot&quot;,
+       x = &quot;Forcing variable (Age)&quot;,
+       y = &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /> <br> <br> <strong>NOTE that the forcing variable in this dataset has already been reduced to a window of two years above or below the cutoff.</strong> ---</p>
+<p><br> <br></p>
+<div id="linear-model-with-common-slopes" class="section level4">
+<h4>Linear model with common slopes</h4>
+<p>Let's run a linear model with common slopes and plot our results.</p>
+<p><strong>NOTE that the forcing variable in this case (age) is CENTERED at 0 (age 21) and is the distance from age 21 in years, while treatment is just binary over/under 21.</strong></p>
+<p>
+<pre class="r"><code># running linear model with common slope
+linear_common_slope &lt;- lm(outcome ~ treatment + forcing, data = mlda_df)
+summary(linear_common_slope)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = outcome ~ treatment + forcing, data = mlda_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.5318 -0.8494 -0.1800  0.7577  3.3094 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  29.3560     0.4293  68.386  &lt; 2e-16 ***
+## treatment     4.5340     0.7680   5.904 4.34e-07 ***
+## forcing      -3.1488     0.3372  -9.337 4.26e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.329 on 45 degrees of freedom
+## Multiple R-squared:  0.7025, Adjusted R-squared:  0.6893 
+## F-statistic: 53.14 on 2 and 45 DF,  p-value: 1.419e-12</code></pre>
+<center>
+<strong>WHAT DO THESE RESULTS TELL US?</strong>
+</center>
+<p>
+In line with our assumptions for linear models with common slope, we consider that treatment effect <span class="math inline">\(D_i\)</span> does not depend on the forcing <span class="math inline">\(X_i\)</span>. We can formalize this model as: <span class="math display">\[E(Y_i|X_i,D_i) = \tilde{\alpha} + \tau D_i + \beta\tilde{X}_i\]</span> Hence we can say, that given our <span class="math inline">\(\tau\)</span> we can expect 4.53 more deaths from motor vehicle accidents per 100,000 for those who can legally drink. We also see that for every year of age increase, the number of expected deaths per 100,000 decreases by 3.15. (Our <span class="math inline">\(\beta = -3.1488\)</span>).
+<p>
+<p>
+We can graph our results with <code>ggplot</code> by extracting the predicted values of the model to recreate the linear fit:
+<p>
+<pre class="r"><code>mlda_df$yhat_linear &lt;- predict(linear_common_slope) # we create a new variable containing the predicted mortality rate
+
+linear_plot &lt;- mlda_df %&gt;% 
+  ggplot(aes(x = agecell,  
+             y = yhat_linear, 
+             col = factor(treatment))) +
+  geom_point(aes(x = agecell, 
+                 y = outcome, 
+                 col = factor(treatment))) +
+  geom_vline(xintercept = 21, linetype = &quot;dotted&quot;) +
+  labs(title = &quot;Linear model with common slope&quot;,
+       x = &quot;Forcing variable (Age)&quot;,
+       y = &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;) +
+  geom_line(data = mlda_df[mlda_df$agecell &gt;= 21,], 
+            color = &quot;#00BFC4&quot;, 
+            size = 1) +
+  geom_line(data = mlda_df[mlda_df$agecell &lt; 21,], 
+            color = &quot;#F8766D&quot;, 
+            size = 1) +
+  scale_color_manual(name = &quot;&quot;,
+                     values = c(&quot;#F8766D&quot;, &quot;#00BFC4&quot;),
+                     labels = c(&quot;Control&quot;, &quot;Treatment&quot;)) +
+  theme_minimal()
+
+linear_plot</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /> <br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+<div id="linear-model-with-different-slopes" class="section level4">
+<h4>Linear model with different slopes</h4>
+Let's run the linear model to gather the slopes for both groups and plot our results. This is achieved by interacting our treatment and forcing variables.
+<p>
+<pre class="r"><code>linear_different_slope &lt;- lm(outcome ~ treatment*forcing, data = mlda_df)
+summary(linear_different_slope)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = outcome ~ treatment * forcing, data = mlda_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4124 -0.7774 -0.2913  0.8495  3.2378 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        29.9292     0.5308  56.390  &lt; 2e-16 ***
+## treatment           4.5340     0.7506   6.041 2.94e-07 ***
+## forcing            -2.5676     0.4661  -5.508 1.77e-06 ***
+## treatment:forcing  -1.1624     0.6592  -1.763   0.0848 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.299 on 44 degrees of freedom
+## Multiple R-squared:  0.7222, Adjusted R-squared:  0.7032 
+## F-statistic: 38.13 on 3 and 44 DF,  p-value: 2.671e-12</code></pre>
+<center>
+<strong>WHAT DO THESE RESULTS TELL US?</strong>
+</center>
+<p>
+In line with our assumptions for linear models with different slope, we allow our treatment effect <span class="math inline">\(D_i\)</span> to vary along the forcing <span class="math inline">\(X_i\)</span>. We can formalize this model as: <span class="math display">\[E(Y_i|X_i,D_i) = \tilde{\alpha} + \beta_oX_i+ \tau D_i + \tilde{\beta}D_i\tilde{X}_i\]</span> Hence we can say, that at given our <span class="math inline">\(\tau\)</span>, we can expect 4.53 more deaths from motor vehicle accidents per 100,000 for those who can legally drink at the threshold. Now we have two different slopes for year-of-age changes. For under-21 individuals, an increase of one year of age would on average result in 2.57 less deaths from motor vehicle accidents (our <span class="math inline">\(\beta_0 = -2.5676\)</span>). For those of legal drinking age, we would expect 3.73 less deaths per 100,000 for every one year of age increase (our <span class="math inline">\(\beta_0X_i + \tilde{\beta}D_i\tilde{X}_i = -2.5676 + (-1.1624) = - 3.73\)</span>).
+<p>
+<p>
+We can graph our results with <code>ggplot</code> by just adding a smooth geom. Since we have added treatment to our color aestethic, <code>ggplot</code> will automatically create the regression line for each group
+<p>
+<pre class="r"><code>diff_slopes_plot &lt;- mlda_df %&gt;% 
+  ggplot(aes(x = agecell,  
+             y = outcome, 
+             col = factor(treatment))) +
+  geom_point() +
+  geom_vline(xintercept = 21, linetype = &quot;dotted&quot;) +
+  geom_smooth(method = &quot;lm&quot;, se = F) +
+  labs(title = &quot;Linear model with different slopes&quot;,
+       x = &quot;Forcing variable (Age)&quot;,
+       y = &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;) +
+  scale_color_manual(name = &quot;&quot;,
+                     values = c(&quot;#F8766D&quot;, &quot;#00BFC4&quot;),
+                     labels = c(&quot;Control&quot;, &quot;Treatment&quot;)) +
+  theme_minimal()
+
+diff_slopes_plot</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<p><strong>Where can you see our alhpa, beta-zero, and tau in the previous plot?</strong></p>
+<p><br></p>
+<hr />
+<p><br> <br></p>
+</div>
+<div id="non-linear-model" class="section level4">
+<h4>Non-linear model</h4>
+<p>Let's run a quadratic model and plot our results.</p>
+<center>
+<strong>THIS IS HOW WE WOULD FORMALIZE A QUADRATIC MODEL</strong>
+</center>
+<span class="math display">\[E(Y_i∣X_i, D_i) = \gamma_0 + \gamma_1\tilde{X_i} + \gamma_2\tilde{X^2_i} + \tau_3D_i + \alpha_1\tilde{X_i}D_i + \alpha_2\tilde{X^2_i}D_i\]</span>
+<p>
+We can input this in our regression model as follows:
+<p>
+<pre class="r"><code>quadratic &lt;- lm(outcome ~ forcing + 
+                  I(forcing^2) + # I tells R to interpret &quot;as is&quot;
+                  treatment + 
+                  I(forcing * treatment) + 
+                  I((forcing^2) * treatment),
+                data = mlda_df)
+summary(quadratic)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = outcome ~ forcing + I(forcing^2) + treatment + I(forcing * 
+##     treatment) + I((forcing^2) * treatment), data = mlda_df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4646 -0.7761 -0.2646  0.8613  3.2418 
+## 
+## Coefficients:
+##                            Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                 29.8090     0.8166  36.505  &lt; 2e-16 ***
+## forcing                     -2.9330     1.9138  -1.533 0.132877    
+## I(forcing^2)                -0.1852     0.9396  -0.197 0.844661    
+## treatment                    4.6629     1.1548   4.038 0.000224 ***
+## I(forcing * treatment)      -0.8231     2.7065  -0.304 0.762527    
+## I((forcing^2) * treatment)   0.1985     1.3288   0.149 0.881980    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.329 on 42 degrees of freedom
+## Multiple R-squared:  0.7224, Adjusted R-squared:  0.6894 
+## F-statistic: 21.86 on 5 and 42 DF,  p-value: 1.017e-10</code></pre>
+<center>
+<strong>WHAT DO THESE RESULTS TELL US?</strong>
+</center>
+<p>
+<p>In line with our assumptions for non-linear models, we allow our treatment effect <span class="math inline">\(D_i\)</span> to vary along the forcing <span class="math inline">\(X_i\)</span>. In this case with quadratic interactions. We can formalize this model as:</p>
+<p><span class="math display">\[E(Y_i∣X_i, D_i) = \gamma_0 + \gamma_1\tilde{X_i} + \gamma_2\tilde{X^2_i} + \tau_3D_i + \alpha_1\tilde{X_i}D_i + \alpha_2\tilde{X^2_i}D_i\]</span> Hence we can say, that at given our <span class="math inline">\(\tau\)</span>, we can expect 4.66 more deaths from motor vehicle accidents per 100,000 for those who can legally drink at the threshold. We could also calculate the expected value of <span class="math inline">\(Y\)</span> at different levels of <span class="math inline">\(X\)</span>.</p>
+Say we want to know what the expected value is for 23-year-olds. Since our forcing variable is 0 at 21 years of age, we can think of 23 as 2. Additionally, 23-year-olds are above the legal drinking age minimum, therefore for them the value of <span class="math inline">\(D\)</span> is 1. <span class="math display">\[E(Y | X=2, D =1) = 29.8090 - 2.9330(2) -0.1852(2)^2 + 4.6629(1) - 0.8231 (2*1) + 0.1985(2*1)^2 = 27.01\]</span> Based on this, we would expect a mortality rate from motor vehicle accidents of 27.01 per 100,000 for 23-year-olds.
+<p>
+<p>
+We can graph our results with <code>ggplot</code> by extracting the predicted values of our quadratic model to recreate the fit:
+<p>
+<pre class="r"><code>mlda_df$yhat_quadratic &lt;- predict(quadratic) 
+
+quadratic_plot &lt;- mlda_df %&gt;% 
+  ggplot(aes(x = agecell, 
+             y = yhat_quadratic, 
+             col = factor(treatment))) +
+  geom_point(aes(x = agecell, 
+                 y = outcome, 
+                 col = factor(treatment))) +
+  geom_vline(xintercept = 21, linetype = &quot;dotted&quot;) +
+  labs(title = &quot;Quadratic plot&quot;,
+       x = &quot;Forcing variable (Age)&quot;,
+       y = &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;) +
+  geom_line(data = mlda_df[mlda_df$agecell &gt;= 21,], 
+            color = &quot;#00BFC4&quot;, 
+            size = 1) +
+  geom_line(data = mlda_df[mlda_df$agecell &lt; 21,], 
+            color = &quot;#F8766D&quot;, 
+            size = 1) +
+  scale_color_manual(name = &quot;&quot;,
+                     values = c(&quot;#F8766D&quot;, &quot;#00BFC4&quot;),
+                     labels = c(&quot;Control&quot;, &quot;Treatment&quot;)) +
+  theme_minimal()
+
+quadratic_plot</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+</div>
+<div id="calculating-the-late-with-rdrobust" class="section level3">
+<h3>Calculating the LATE with rdrobust()</h3>
+<p><code>rdrobust()</code> is part of the <code>rdrobust</code> package. It performs local linear regressions to either side of the cutpoint using optimal bandwidth calculation. The syntax is the following:</p>
+<pre class="r"><code>model &lt;- rdrobust::rdrobust(x, 
+                            y,
+                            c = cutoffvalue,
+                            kernel = &quot;tri&quot;, #default
+                            bwselect = &quot;mserd&quot;) #default
+                            </code></pre>
+<p>We have the option to set the cutpoint, kernel type, order of the local polynomial, etc.: <a href="https://cran.r-project.org/web/packages/rdrobust/rdrobust.pdf" class="uri">https://cran.r-project.org/web/packages/rdrobust/rdrobust.pdf</a></p>
+<p>
+<pre class="r"><code>llr &lt;- rdrobust::rdrobust(mlda_df$outcome, 
+                          mlda_df$forcing,  
+                          c = 0,
+                          kernel = &quot;tri&quot;,
+                          bwselect = &quot;mserd&quot;)
+summary(llr)</code></pre>
+<pre><code>## Call: rdrobust
+## 
+## Number of Obs.                   48
+## BW type                       mserd
+## Kernel                   Triangular
+## VCE method                       NN
+## 
+## Number of Obs.                  24          24
+## Eff. Number of Obs.              6           6
+## Order est. (p)                   1           1
+## Order bias  (q)                  2           2
+## BW est. (h)                  0.487       0.487
+## BW bias (b)                  0.738       0.738
+## rho (h/b)                    0.660       0.660
+## Unique Obs.                     24          24
+## 
+## =============================================================================
+##         Method     Coef. Std. Err.         z     P&gt;|z|      [ 95% C.I. ]       
+## =============================================================================
+##   Conventional     4.901     2.059     2.380     0.017     [0.864 , 8.937]     
+##         Robust         -         -     1.881     0.060    [-0.198 , 9.674]     
+## =============================================================================</code></pre>
+<center>
+<strong>WHAT DO THESE RESULTS TELL US?</strong>
+</center>
+The model is telling us that based on the calculation, the estimated effect would be 4.90 more deaths per 100,000 for those over-21.
+<p>
+<p>
+The most straight-forward way to graph the output of this model is through the <code>rdrobust::rdplot()</code> function:
+<p>
+<pre class="r"><code>rdrobust::rdplot(mlda_df$outcome, 
+                 mlda_df$forcing,  
+                 c = 0,
+                 kernel = &quot;tri&quot;,
+                 title = &quot;Motor Vehicle Accidents Death&quot;,
+                 x.label = &quot;Age from 21&quot;,
+                 y.label =  &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;
+)</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /> <br> <br></p>
+<hr />
+<p><br> <br></p>
+</div>
+</div>
+<div id="example-2.-measuring-the-long-term-effects-of-a-conditional-cash-transfer-program-on-educational-achievement" class="section level2">
+<h2>Example 2. Measuring the long term effects of a conditional cash transfer program on educational achievement</h2>
+<p>Imagine that you work as a technical adviser for the Ministry of Education in your country. You are tasked to assess whether a Conditional Cash Transfer (CCT) program established decades before yields positive results on the beneficiaries' educational attainment. There is a large amount of evidence which suggests that CCTs encourage households to increase the use of educational services.</p>
+<p>You read the guidelines for the program. Families receive a stipend per child provided they keep their them in school and take them for health checks. Additionally, you note that under the rules of the program, beneficiaries are selected based on a household income threshold of €20000. You decide to dive into the data with the idea that a discontinuity is created based on the income threshold. (This example utilizes simulated data)</p>
+<p><br></p>
+<pre class="r"><code>cct_data &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/seramirezruiz/stats-ii-lab/master/Session%206/data/cct_data.csv&quot;) # loading simulated data frame of the program</code></pre>
+<p><br> <code>hh_income</code>: household income in euros</p>
+<p><code>years_of_schooling</code>: years of schooling for respondent</p>
+<p><code>treatment</code>: binary variable indicating whether respondent was a beneficiary of the program <br></p>
+<hr />
+<div id="checking-visually-whether-a-sharp-rdd-makes-sense-for-the-analysis-1" class="section level3">
+<h3>Checking visually whether a sharp-RDD makes sense for the analysis</h3>
+<p>What we are looking for in this case is whether our €20000 threshold is in fact the cut-off for treatment. That is to say, that only those who had a household income of equal or less than €20000 received the cash transfer.</p>
+<pre class="r"><code>ggplot(cct_data, 
+       aes(x = hh_income, 
+           y = years_of_schooling, 
+           color = factor(treatment))) + 
+  geom_point() + 
+  labs(x = &quot;Household Income&quot;, 
+       y = &quot;Years of Schooling&quot;) +
+  scale_color_discrete(name = &quot; &quot;, 
+                       labels = c(&quot;No treatment&quot;, &quot;Treatment&quot;)) +
+  geom_vline(xintercept = 20000, linetype = &quot;dotted&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(cct_data, 
+       aes(x = hh_income, 
+           y = treatment, 
+           color = factor(treatment))) + 
+  geom_point() + 
+  labs(x = &quot;Household Income&quot;, 
+       y = &quot;Treatment&quot;) +
+  scale_color_discrete(name = &quot; &quot;, 
+                       labels = c(&quot;No treatment&quot;, &quot;Treatment&quot;)) +
+  geom_vline(xintercept = 20000, linetype = &quot;dotted&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br> We can see from the graph that our €20000 threshold is in fact cutting off the distribution of the treatment. This would make household income a viable forcing variable for a sharp-RDD set-up. <br></p>
+<hr />
+</div>
+<div id="estimating-our-model" class="section level3">
+<h3>Estimating our model</h3>
+<p>We can see that the relationship is fairly linear, so we decide to run a linear model with common slope.</p>
+<pre class="r"><code># running linear model with common slope
+ed_achievement &lt;- lm(years_of_schooling ~ treatment + hh_income, data = cct_data)
+summary(ed_achievement)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = years_of_schooling ~ treatment + hh_income, data = cct_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.43214 -0.54823 -0.01033  0.54269  2.99567 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -2.648e+00  1.106e-01  -23.94   &lt;2e-16 ***
+## treatment    2.460e+00  3.785e-02   64.99   &lt;2e-16 ***
+## hh_income    6.274e-04  4.720e-06  132.91   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8167 on 4997 degrees of freedom
+## Multiple R-squared:  0.815,  Adjusted R-squared:  0.815 
+## F-statistic: 1.101e+04 on 2 and 4997 DF,  p-value: &lt; 2.2e-16</code></pre>
+<center>
+<strong>WHAT DO THESE RESULTS TELL US?</strong>
+</center>
+<p>
+<p>In line with our assumptions for linear models with common slope, we consider that treatment effect, <span class="math inline">\(D_i\)</span>, does not depend on the forcing <span class="math inline">\(X_i\)</span>. Hence, we can expect that students who received the treatment get on average 2.4 more years of schooling. We also see that for every €1,000 increase in the household income, students are expected to attain 0.6274 more years of education. (Our <span class="math inline">\(\beta = -6.274e-04*1000\)</span>).</p>
+<p><br> <br></p>
+<hr />
+<p><strong>Getting familiar with LOESS</strong></p>
+<p>Locally weighted smoothing is a popular tool used in regression analysis that creates a smooth line through a scatter plot to help you to see relationship between variables and foresee trends. We can introduce it to our <code>ggplot</code> as a part of geom_smooth by calling method &quot;loess&quot;.</p>
+<pre class="r"><code>ggplot(cct_data, 
+       aes(x = hh_income, 
+           y = years_of_schooling, 
+           color = factor(treatment))) + 
+  geom_point(alpha = 0.1) + 
+  labs(x = &quot;Household Income&quot;, 
+       y = &quot;Years of Schooling&quot;) +
+  geom_smooth(method = &quot;loess&quot;) +
+  scale_color_discrete(name = &quot; &quot;, 
+                       labels = c(&quot;No treatment&quot;, &quot;Treatment&quot;)) +
+  geom_vline(xintercept = 20000, linetype = &quot;dotted&quot;) +
+  theme_minimal()</code></pre>
+<img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+<p>
+The LOESS smoothing is not very visible in this relationship because of the way we defined the simulated data. Let's look at how it would look in our drinking age example:
+<p>
+<pre class="r"><code>ggplot(mlda_df,
+       aes(x = agecell,  
+           y = outcome, 
+           col = factor(treatment))) +
+  geom_point() +
+  geom_smooth(method = &quot;loess&quot;) +
+  labs(title = &quot;LOESS smoothing&quot;,
+       x = &quot;Forcing variable (Age)&quot;,
+       y = &quot;Mortality rate from motor vehicle \naccidents (per 100,000)&quot;) +
+  scale_color_manual(name = &quot;&quot;,
+                     values = c(&quot;#F8766D&quot;, &quot;#00BFC4&quot;),
+                     labels = c(&quot;Control&quot;, &quot;Treatment&quot;)) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><br> <br></p>
+<hr />
+<div id="violations-to-the-assumptions" class="section level4">
+<h4>Violations to the assumptions</h4>
+<p>You are made aware by a tax expert from your unit that €20000 is the upper-boundary for a very well known tax concession. You are afraid that people may be sorting themselves before the household income cut-off to become beneficiaries of multiple programs. You decide to check your data.</p>
+<pre class="r"><code>ggplot(cct_data, 
+       aes(x = hh_income)) +
+  geom_histogram(bins = 25) +
+  labs(title = &quot;Income distribution&quot;,
+       x = &quot;Household Income&quot;,
+       y = &quot;Number of respondents&quot;) +
+  geom_vline(xintercept = 20000, linetype = &quot;dotted&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/scripts/lab_7_RDD_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+<p>This case looks a bit ambiguous. Do you think people are sorting out just before the cut-off? If sorting were to exist which assumptions would be challenged? Would the existence of other programs that have the same threshold affect a causal reading of our results?</p>
+<p>We can also apply an exact binomial test (like in the lecture). In this case, we can check ±1000</p>
+<pre class="r"><code>cct_data %&gt;% 
+  dplyr::filter(dplyr::between(hh_income, 19000, 21000)) %&gt;%
+  dplyr::group_by(treatment) %&gt;%
+  dplyr::summarize(n = n()) %&gt;%
+  knitr::kable() %&gt;%
+  kableExtra::kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+treatment
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+520
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+530
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>binom.test(530, 1050, p = 0.5)</code></pre>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  530 and 1050
+## number of successes = 530, number of trials = 1050, p-value = 0.7812
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.4740669 0.5354301
+## sample estimates:
+## probability of success 
+##              0.5047619</code></pre>
+</div>
+</div>
+</div>
+
+  </div>
+  
+
+<div class="navigation navigation-single">
+    
+    <a href="/2020-fall-stats2/scripts/lab_6_matching/" class="navigation-prev">
+      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+      <span class="navigation-tittle">Session 05 - Matching</span>
+    </a>
+    
+    
+    <a href="/2020-fall-stats2/scripts/lab_8_did/" class="navigation-next">
+      <span class="navigation-tittle">Session 07 - Difference-in-Differences</span>
+      <i aria-hidden="true" class="fa fa-chevron-right"></i>
+    </a>
+    
+</div>
+
+
+  
+
+  
+    
+
+
+</article>
+
+
+        </div>
+        
+    
+
+<script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" integrity="sha384-ZbbbT1gw3joYkKRqh0kWyRp32UAvdqkpbLedQJSlnI8iLQcFVxaGyrOgOJiDQTTR" crossorigin="anonymous"></script>
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+        
+    <script type="text/javascript">
+        
+        hljs.initHighlightingOnLoad();
+    </script>
+    
+
+
+
+    
+
+
+
+    </body>
+</html>
