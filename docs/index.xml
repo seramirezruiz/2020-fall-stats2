@@ -14,18 +14,9 @@
       
       <guid>https://seramirezruiz.github.io/2020-fall-stats2/about/</guid>
       <description>Statistical Modeling &amp;amp; Causal Inference 2020-II Tutorial Repository for the Statistical Modeling &amp;amp; Causal Inference 2020-II Tutorial
-Overview Term: Spring 2020
+Overview Term: Fall 2020
 Instructors: Adelaida Barrera and Sebastian Ramirez Ruiz
 Location: Hertie School, Berlin Website This website will be used during the tutorial sessions for the Statistical Modeling &amp;amp; Causal Inference course. In here you will find the lab slides, code tutorials, and materials for further reference.</description>
-    </item>
-    
-    <item>
-      <title>09 - Moderation</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/10-slides/</link>
-      <pubDate>Tue, 03 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/10-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/10-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
     </item>
     
     <item>
@@ -39,15 +30,6 @@ The country of Absurdistan has had an ongoing civil conflict for the past 60 yea
     </item>
     
     <item>
-      <title>08 - Panel Data and Fixed Effects Specifications</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/09-slides/</link>
-      <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/09-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/09-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
-    </item>
-    
-    <item>
       <title>Session 08 - Panel Data and Fixed Effects Specifications</title>
       <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_9_panel_data_fe/</link>
       <pubDate>Tue, 27 Oct 2020 00:00:00 +0000</pubDate>
@@ -58,15 +40,6 @@ You are hired as an outside consultant by the Organization of Economic Non-Coope
     </item>
     
     <item>
-      <title>07- Difference-in-Differences</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/08-slides/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/08-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/08-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
-    </item>
-    
-    <item>
       <title>Session 07 - Difference-in-Differences</title>
       <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_8_did/</link>
       <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
@@ -74,15 +47,6 @@ You are hired as an outside consultant by the Organization of Economic Non-Coope
       <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_8_did/</guid>
       <description>Measuring the effect of a soda tax on sugar-added drink consumption After the very succesful impact evaluations you have performed in the past weeks, you are contacted by the local government of Pawnee, Indiana. The city is interested in your advice to assess a policy intervention passed with the support of councilwoman Leslie Knope.
 The city of Pawnee has been at the spotlight recently, as it has come to be known as the child obesity and diabetes capital of the state of Indiana.</description>
-    </item>
-    
-    <item>
-      <title>06 - Regression Discontinuity Design (RDD)</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/07-slides/</link>
-      <pubDate>Tue, 13 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/07-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/07-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
     </item>
     
     <item>
@@ -97,15 +61,6 @@ The city of Pawnee has been at the spotlight recently, as it has come to be know
     </item>
     
     <item>
-      <title>05 - Matching</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/06-slides/</link>
-      <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/06-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/06-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
-    </item>
-    
-    <item>
       <title>Session 05 - Matching</title>
       <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_6_matching/</link>
       <pubDate>Tue, 29 Sep 2020 00:00:00 +0000</pubDate>
@@ -113,15 +68,6 @@ The city of Pawnee has been at the spotlight recently, as it has come to be know
       <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_6_matching/</guid>
       <description>The Effect of Catholic School on Student Achievement Example inspired by Simon Ejdemyr: https://sejdemyr.github.io/r-tutorials/statistics/tutorial8.html
 Reference links: MatchIt: https://cran.r-project.org/web/packages/MatchIt/vignettes/matchit.pdf Cobalt (optional library for matching plots and extra features): https://cran.r-project.org/web/packages/cobalt/vignettes/cobalt_A0_basic_use.html kableExtra (for formatting data frames): https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html Stargazer (for formatting model outputs): https://www.jakeruss.com/cheatsheets/stargazer/ Video overview of matching concepts: https://fr.coursera.org/lecture/crash-course-in-causality/overview-of-matching-JQfPC  library(dplyr) # for data wrangling library(readr) # for loading the .csv data library(ggplot2) # for creating plots library(stargazer) # for formatting model output library(kableExtra) # for formatting data frames library(MatchIt) # for matching set.</description>
-    </item>
-    
-    <item>
-      <title>04 - Instrumental Variables</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/05-slides/</link>
-      <pubDate>Tue, 22 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/05-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/05-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
     </item>
     
     <item>
@@ -135,30 +81,12 @@ Reference links: MatchIt: https://cran.r-project.org/web/packages/MatchIt/vignet
     </item>
     
     <item>
-      <title>03 - Causal Graphs</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/04-slides/</link>
-      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/04-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/04-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
-    </item>
-    
-    <item>
       <title>Session 03 - Causal Graphs</title>
       <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_4_causal_graphs/</link>
       <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://seramirezruiz.github.io/2020-fall-stats2/scripts/lab_4_causal_graphs/</guid>
       <description># Load packages. Install them first, in case you don&amp;#39;t have them yet. set.seed(42) #for consistent randomization library(palmerpenguins) # To get our example&amp;#39;s dataset library(ggplot2) # To visualize data (this package is also loaded by library(tidyverse)) library(stargazer) # To format regression tables library(tidyverse) # To use dplyr functions and the pipe operator when needed library(knitr) # To create tables with kable() library(kableExtra) # To format tables with kable_styling() Welcome This week&#39;s tutorial will be divided in two broader camps.</description>
-    </item>
-    
-    <item>
-      <title>02 - Regression</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/03-slides/</link>
-      <pubDate>Tue, 08 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/03-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/03-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
     </item>
     
     <item>
@@ -173,15 +101,6 @@ In this lab session we will:
     </item>
     
     <item>
-      <title>01 - Foundations</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/02-slides/</link>
-      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/02-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/02-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
-    </item>
-    
-    <item>
       <title>Session 01 - Foundations</title>
       <link>https://seramirezruiz.github.io/2020-fall-stats2/scripts/foundations/</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
@@ -190,15 +109,6 @@ In this lab session we will:
       <description>Welcome! The practical component of the Statistics II: Statistical Modeling and Causal Inference course relies largely in R programming. Today we will center on some of the necessary skills to perform the assignments for the course. Finally, we will dive into some of the substance of the class by exploring the Potential Outcomes Framework.
 In this tutorial, you will learn to:
  identify the some of the basic functionalities of R and RStudio import data sets into your R environment distinguish the foundations of the Potential Outcomes Framework (POF) apply dplyr verbs to retrieve estimates   R and RStudio: Basics The RStudio layout RStudio is an integrated development environment (IDE) for R.</description>
-    </item>
-    
-    <item>
-      <title>00 - Introduction</title>
-      <link>https://seramirezruiz.github.io/2020-fall-stats2/slides/01-slides/</link>
-      <pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://seramirezruiz.github.io/2020-fall-stats2/slides/01-slides/</guid>
-      <description>#the-canvas { border: 1px solid black; direction: ltr; width: 100%; height: auto; } #paginator{ text-align: center; margin-bottom: 10px; }  Previous Next &amp;nbsp; &amp;nbsp; Page:  /     window.onload = function() { var url = &#34;\/slides\/01-slides.pdf&#34;; var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;]; pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;; var pdfDoc = null, pageNum = 1, pageRendering = false, pageNumPending = null, scale = 3, canvas = document.getElementById(&#39;the-canvas&#39;), ctx = canvas.getContext(&#39;2d&#39;); function renderPage(num) { pageRendering = true; pdfDoc.</description>
     </item>
     
   </channel>

@@ -13,7 +13,6 @@ params:
   licenseURL: https://creativecommons.org/licenses/by-sa/4.0
   showBuiltWith: no
   since: 2020
-  mainsections: about
   social:
     email: ramirez-ruiz@hertie-school.org
     github: seramirezruiz
@@ -31,13 +30,6 @@ menu:
       url: /scripts/
       weight: 2
       pre: <i class='fa fa-code'></i>
-    - identifier: slides
-      name: Slides
-      url: /slides/
-      weight: 3
-      pre: <i class='fa fa-laptop'></i>
-    
-
 markup:
   goldmark:
     renderer:

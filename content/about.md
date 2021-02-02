@@ -9,7 +9,7 @@ Repository for the Statistical Modeling &amp; Causal Inference 2020-II Tutorial
 
 
 ### Overview
-<b>Term:</b> Spring 2020<br>
+<b>Term:</b> Fall 2020<br>
 <b>Instructors:</b> Adelaida Barrera and Sebastian Ramirez Ruiz<br>
 <b>Location:</b> Hertie School, Berlin <br>
 
